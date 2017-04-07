@@ -1,0 +1,20 @@
+#tour {
+    background-color: #FFE258;
+    padding: 20px;
+}
+#tour .heading {
+    max-width: 700px;
+    margin: 0 auto;
+}
+#tour .heading h2 {
+    color: black;
+}
+#tour .heading .hr {
+   display: block;
+   width: 230px;
+   margin: 20px auto;
+   border: 1px solid black;
+}
+#tour .heading p {
+    text-align: center;
+}

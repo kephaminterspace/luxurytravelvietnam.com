@@ -1,0 +1,28 @@
+.box-benefit {
+    padding: 10px 0;
+}
+.box-benefit .item {
+    margin: 20px 0;
+}
+.box-benefit .item .left {
+    float: left;
+    position: relative;
+    top: 10px;
+    height: 100%;
+    vertical-align: middle;
+}
+.box-benefit .item .left .number {
+    float: left;
+    height: 30px;
+    width: 30px;
+    border: 4px solid #fab325;
+    text-align: center;
+    font-weight: bold;
+
+}
+.box-benefit .item .text {
+    margin-left: 40px;
+}
+.box-benefit .item .text p {
+
+}

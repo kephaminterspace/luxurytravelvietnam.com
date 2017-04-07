@@ -1,6 +1,6 @@
 <?php
 $message = '';
-if(isset($_POST['name'])) {
+if(isset($_POST['first_name'])) {
 
 	function gen_uuid() {
 		return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
@@ -27,24 +27,67 @@ if(isset($_POST['name'])) {
 	$arr = array(
 		'properties' => array(
 			array(
-				'property' => 'email',
-				'value' => $_POST['email']
+				'property' => 'lastname',
+				'value' => $_POST['last_name']
 			),
 			array(
 				'property' => 'firstname',
-				'value' => $_POST['name']
+				'value' => $_POST['first_name']
+			),
+			array(
+				'property' => 'new_email',
+				'value' => $_POST['email']
 			),
 			array(
 				'property' => 'phone',
-				'value' => $_POST['phone']
+				'value' => $_POST['telephone']
 			),
 			array(
-				'property' => 'hs_lead_status',
-				'value' => "NEW"
+				'property' => 'destinations',
+				'value' => implode(', ', $_POST['destinations'])
+			),
+			array(
+				'property' => 'duration',
+				'value' => $_POST['duration']
+			),
+			array(
+				'property' => 'date',
+				'value' => $_POST['date']
+			),
+			array(
+				'property' => 'flexible',
+				'value' => $_POST['flexible']
+			),
+			array(
+				'property' => 'adult',
+				'value' => $_POST['adult']
+			),
+			array(
+				'property' => 'children_above',
+				'value' => $_POST["children_above"]
+			),
+			array(
+				'property' => 'children_below',
+				'value' => $_POST['children_below']
+			),
+			array(
+				'property' => 'travel_style',
+				'value' => implode(', ', $_POST['travel_style'])
+			),
+			array(
+				'property' => 'start',
+				'value' => $_POST['start']
+			),
+			array(
+				'property' => 'budget',
+				'value' => $_POST['budget']
+			),
+			array(
+				'property' => 'holiday',
+				'value' => $_POST["holiday"]
 			)
 		)
 	);
-
 	$post_json = json_encode($arr);
 
 	$endpoint = "https://api.hubapi.com/contacts/v1/contact/?hapikey=79fe912a-8818-4f9d-b171-accc12bf4ec0";
@@ -359,569 +402,955 @@ order_items_table_td_right m_8382415399398585989order_items_table_th_bg_color" s
 }
 ?>
 
-
-<html lang="vi">
+<!DOCTYPE html>
+<html>
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+	<title>Luxury</title>
+	<link type="image/x-icon" href="favicon.ico" rel="shortcut icon">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!--bootstrap-->
+	<link rel="stylesheet" type="text/css" href="css/resource/custom/roboto.css"/>
+	<link rel="stylesheet" type="text/css" href="resources/national/dist/css/bootstrap-formhelpers.css"/>
+	<link rel="stylesheet" type="text/css" href="resources/bootstrap-select-1.12.2/dist/css/bootstrap-select.css"/>
+	<link rel="stylesheet" type="text/css" href="resources/bootstrap-3.3.7/dist/css/bootstrap.css"/>
+	<!--layout-->
+	<link rel="stylesheet" type="text/css" href="css/layout/0.body.css"/>
+	<link rel="stylesheet" type="text/css" href="css/layout/1.header_banner.css"/>
+	<link rel="stylesheet" type="text/css" href="css/layout/2.introduction.css"/>
+	<link rel="stylesheet" type="text/css" href="css/layout/3.customer.css"/>
+	<link rel="stylesheet" type="text/css" href="css/layout/4.tour.css"/>
+	<link rel="stylesheet" type="text/css" href="css/layout/5.benefit.css"/>
+	<link rel="stylesheet" type="text/css" href="css/layout/6.procedure.css"/>
+	<link rel="stylesheet" type="text/css" href="css/layout/7.form.css"/>
+	<link rel="stylesheet" type="text/css" href="css/layout/8.contact.css"/>
+	<link rel="stylesheet" type="text/css" href="css/layout/9.footer.css"/>
 
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/animate.css">
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/responsive.css">
-	<link rel="stylesheet" href="css/font-face.css">
-	<link rel="stylesheet" href="css/custom.css">
-	<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="css/carouseller.css">
-	<link rel="stylesheet" href="css/colorbox.css">
-	<script src="js/jquery-2.2.3.min.js" type="text/javascript"></script>
-	<script src="js/bootstrap.min.js" type="text/javascript"></script>
-	<script src="js/wow.min.js"></script>
-	<script src="js/custom.js"></script>
-	<script src="js/carouseller.min.js"></script>
-	<script src="js/jquery.colorbox-min.js"></script>
+	<!--element-->
+	<!--button-->
+	<link rel="stylesheet" type="text/css" href="css/element/button/btn-radius.css"/>
+	<link rel="stylesheet" type="text/css" href="css/element/button/btn-circle.css"/>
+	<link rel="stylesheet" type="text/css" href="css/element/button/btn-arrow.css"/>
+	<link rel="stylesheet" type="text/css" href="css/element/button/btn-rectangle.css"/>
+	<!--box-->
+	<link rel="stylesheet" type="text/css" href="css/element/box/box-introduction.css"/>
+	<link rel="stylesheet" type="text/css" href="css/element/box/box-customer.css"/>
+	<link rel="stylesheet" type="text/css" href="css/element/box/box-tour.css"/>
+	<link rel="stylesheet" type="text/css" href="css/element/box/box-benefit.css"/>
+	<link rel="stylesheet" type="text/css" href="css/element/box/box-procedure.css"/>
+	<!--line-->
+	<link rel="stylesheet" type="text/css" href="css/element/line/line-vertical.css"/>
 
-	<!--	<script src="js/jquery.easing.1.3.js"></script>-->
-	<!-- Google Tag Manager -->
-	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-		})(window,document,'script','dataLayer','GTM-MPQ42HG');</script>
-	<!-- End Google Tag Manager -->
+	<!--form-->
+	<link rel="stylesheet" type="text/css" href="css/element/form/input.css"/>
+	<link rel="stylesheet" type="text/css" href="css/element/form/input_checkbox.css"/>
+	<!--map-->
+	<link rel="stylesheet" type="text/css" href="css/element/map/map.css"/>
+
+	<!--customize-->
+	<!--1.header_banner-->
+	<link rel="stylesheet" type="text/css" href="css/customize/1.header_banner/2.banner/button-circle_c.css"/>
+	<link rel="stylesheet" type="text/css" href="css/customize/1.header_banner/2.banner/button-radius_c.css"/>
+	<link rel="stylesheet" type="text/css" href="css/customize/1.header_banner/1.header/logo.css"/>
+	<link rel="stylesheet" type="text/css" href="css/customize/1.header_banner/1.header/menu.css"/>
+	<!--2.introduction-->
+	<link rel="stylesheet" type="text/css" href="css/customize/2.introduction/box-introduction_c.css"/>
+	<!--4.tour-->
+	<link rel="stylesheet" type="text/css" href="css/customize/4.tour/box-customer_c.css"/>
+	<!--5.benefit-->
+	<link rel="stylesheet" type="text/css" href="css/customize/5.benefit/btn-arrow_c.css"/>
+	<!--6.procedure-->
+	<link rel="stylesheet" type="text/css" href="css/customize/6.procedure/box-procedure_c.css"/>
+
+	<!--modul-->
+	<link rel="stylesheet" href="module/phone_country/build/css/intlTelInput.css">
+
+	<!--resource-->
+	<link rel="stylesheet" href="css/resource/font_awesome/css/font-awesome.min.css">
+
+	<!--config-->
+	<link rel="stylesheet" type="text/css" href="css/config/style.css"/>
+
+	<!--custom-->
+	<link rel="stylesheet" type="text/css" href="css/resource/custom/style.css"/>
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MPQ42HG"
-				  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-<div class="getleads">
-	<div class="background-nav" style="height: 58px;"></div>
-	<header id="nav1-1-f">
-		<nav class="navbar navbar-fixed-top">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-
-					<a href="#" class="navbar-brand smooth-scroll"><img src="images/logo.png" alt="none" data-selector="img" style="max-width:300px;max-height:40px;"></a>
-				</div>
-				<div class="collapse navbar-collapse" id="navbar-collapse">
-					<ul class="nav navbar-nav navbar-right">
-						<li class="active"><a href="#content6-1-c" class="smooth-scroll">Giới thiệu</a></li>
-						<li><a href="#contact7-1" class="smooth-scroll">Công dụng</a></li>
-						<li><a href="#portfolio1-1-a" class="smooth-scroll">Tại Sao Chọn?</a></li>
-						<li><a href="#cta1-3" class="smooth-scroll">Khách hàng</a></li>
-						<li><a href="#testimonials3-1" class="smooth-scroll" >Quy trình</a></li>
-						<li><a href="#contact3-2" class="smooth-scroll">Liên hệ</a></li>
-
-					</ul>
-				</div>
-			</div>
-		</nav>
-	</header>
-</div>
-
-<div class="getleads">
-	<section id="hero1-1-a" class="hero bg-img" style="background: url('images/bg1.png') no-repeat center;">
-		<div class="container vertical-center-rel" style="margin-top: 50px;">
-			<div class="row">
-				<div class="text-baner">
-					<h1 style="color: #00923f;
-   -webkit-text-fill-color: #ffffff; /* Will override color (regardless of order) */
-   -webkit-text-stroke-width: 2px;
-   -webkit-text-stroke-color: #00923f; font-size:60px; padding-bottom:0; margin:0;text-transform:uppercase">OIC NANO CURCUMIN</h1>
-					<p style="color:#00923f; font-size:23px; margin:0; padding:0;text-transform:uppercase">Hỗ trợ phòng chống ung thư, bảo vệ sức khỏe</p>
-					<h1 style=" color:#00923f; font-size:40px; padding-bottom:0; margin:0;text-transform:uppercase">chỉ với 18k mỗi ngày</h1>
-					<!--					<p style="color: #333; font-size:36px; margin:0; padding:0;text-transform:uppercase">hotline: <span style="font-weight:bold; color: #F00;">01666.555.888</p>-->
-				</div>
-			</div>
-		</div>
-	</section>
-</div>
-
-<div class="getleads">
-	<section id="content6-1-c" class="p-y-lg content-block content-align-md bg-edit" data-selector="block" style="background-color:#ffffff;border-radius:0px;padding-top:30px;padding-bottom:30px;">
-		<div class="container">
-			<div class="row" style="margin:auto; width:88%; ">
-				<h2 class="m-b-md">NANO CURCUMIN chiết xuất 100% từ nghệ tự nhiên</h2>
-				<div style="color:#333333;font-size:16px;margin-bottom:25px;">
-					<div style="margin-bottom:60px; text-align:justify ">
-						OIC NANO CURCUMIN là sản phẩm duy nhất của nano curcumin ở dạng chất lỏng, hòa tan 100% trong nước, không tạo cặn: khi các phân tử curcumin được chia tách thành các hạt nano có kích thước siêu nhỏ từ 40-60 nanomet, các hạt nano này luôn có xu hướng gắn kết lại với nhau tạo thành kích thước hạt to hơn, không còn dưới dạng NANO nữa.
-						Sau nhiều năm nghiên cứu, chúng tôi đã phát minh ra qui trình điều chế vi nhũ tương nano curcumin, giúp cho các phần tử curcumin luôn tồn tại dưới dạng hạt nano siêu nhỏ, có thể thẩm thấu ngay qua lớp màng tế bào khi vào cơ thể con người, qua đó phát huy tối đa khả năng hấp thụ cũng như hiệu quả của curcumin trong quá trình sử dụng.
-						Với phát minh này, ngày 13 tháng 10 năm 2016, chúng tôi rất vinh dự được đón nhận bằng độc quyền sáng chế số 16095 do Cục sở hữu trí tuệ, Bộ Khoa học công nghệ cấp, có thời hạn 20 năm và được bảo hộ theo luật sở hưu trí tuệ trên toàn thế giới.
-					</div>
-					<div style="clear:both"></div>
-					<div class="clearboth text-center">
-						<a href="#contact3-2" style="font-weight:bold;color:#00923f; border:2px solid #f99e1a;padding-left:40px;padding-right:40px;padding-top:15px;padding-bottom:15px;font-size:20px; text-transform:uppercase; border-radius:8px;">Đăng ký ngay</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-</div>
-<div class="line"></div>
-<div class="getleads">
-	<section id="contact7-1" class="p-t-md bg-edit bg-dark" data-selector="block" style="background-color:#f7f7f7;padding-top:50px;padding-bottom:50px;">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 c4 contact-divider text-white text-center">
-
-					<div class="col-md-3">
-						<img src="images/ss2.jpg" alt="None" class="congdung">
-						<h5 class="f-w-900" data-selector="text1" style="font-weight:700;color:#333333;font-size:15px; text-transform:uppercase">Điều trị các bệnh về dạ dày, đại tràng</h5>
-						<div data-selector="text2" style="font-weight:400;color:#333333;font-size:13px;"><p>Bảo vệ và giúp làm lành tổn thương niên mạc dạ dày, giúp các vết thương nhanh liền sẹo và làm mờ các vết thâm nám</p></div>
-					</div>
-					<div class="col-md-3">
-						<img src="images/ss1.jpg" alt="None" class="congdung">
-						<h5 class="f-w-900" data-selector="text1" style="font-weight:700;color:#333333;font-size:15px; text-transform:uppercase">Chống oxy hóa, tiêu diệt các tế bào lạ</h5>
-						<div data-selector="text2" style="font-weight:400;color:#333333;font-size:13px;"><p>giúp hỗ trợ quá trinh điều trị bệnh nhận ung thư, bệnh nhân đang xạ trị</p></div>
-					</div>
-					<div class="col-md-3">
-						<img src="images/ss3.jpg" alt="None" class="congdung">
-						<h5 class="f-w-900" data-selector="text1" style="font-weight:700;color:#333333;font-size:15px; text-transform:uppercase">phục hồi sức khỏe</h5>
-						<div data-selector="text2" style="font-weight:400;color:#333333;font-size:13px;"><p>Phụ nữ sau sinh, chống lão hóa cơ thể, giúp cơ thể trẻ khỏe hơn, da đẹp hơn</p></div>
-					</div>
-					<div class="col-md-3">
-						<img src="images/ss4.jpg" alt="None" class="congdung">
-						<h5 class="f-w-900" data-selector="text1" style="font-weight:700;color:#333333;font-size:15px; text-transform:uppercase">Tăng cường chức năng gan
-						</h5>
-						<div data-selector="text2" style="font-weight:400;color:#333333;font-size:13px;"><p>Hạ men gan, tăng cường khả năng miễn dịch, tăng cường chức năng gan mật</p></div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-</div>
-<div class="line"></div>
-<div class="getleads">
-	<section id="portfolio1-1-a" class="p-y-lg bg-edit" data-selector="block" style="padding-top:30px;">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2">
-					<div class="section-header text-center wow fadeIn" style="visibility: visible; animation: fadeIn; -webkit-animation: fadeIn;">
-						<h2 data-selector="text1" style=" color:#00923f; text-transform:uppercase; font-size:28px; padding-bottom:50px;">tại sao chọn OIC NANO CURCUMIN?</h2>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="container">
-			<div class="row">
-				<div data-wow-delay="0.5s" class="wow fadeInDownBig thanhphan"><img src="images/thanh-phan.png"> </div>
-				<div data-wow-delay="1.2s" class="wow bounceInLeft text1" style="padding:5px;">
-					<strong>-</strong>&nbsp;&nbsp;Là sản phẩm duy nhất của nano curcumin ở dạng chất lỏng, phát tán (hòa tan) 100% trong nước, không tạo cặn. với liều lượng 1ml pha với một cốc nước ấm 150ml, các bạn có thể dễ dàng uống như uông nước hàng ngày.</div>
-				<div data-wow-delay="1s" class="wow bounceInLeft con1"><img src="images/con1.png"></div>
-				<div data-wow-delay="1.8s" class="wow bounceInRight text2" style="padding:5px;">
-					<strong>-</strong>&nbsp;&nbsp;Là sản phẩm NANO CURCUMIN có thành phần Curcumin cao nhất lên tới 14,2%, do vậy chỉ với mỗi liều lượng 1ml pha vào nước tinh khiết các bạn đã có một cốc nano curcumin màu vàng sậm, đậm đặc, cung cấp đủ lượng curcumin cần thiết cho quá trình hỗ trợ điều trị bệnh và bảo vệ cơ thể mỗi ngày.</div>
-				<div data-wow-delay="1.5s" class="wow bounceInRight con2"><img src="images/con2.png"></div>
-				<div data-wow-delay="2.2s" class="wow bounceInLeft text3" style="padding:5px;">
-					<strong>-</strong>&nbsp;&nbsp;Các phần tử curcumin trong sản phẩm của OIC luôn tồn tại dưới dạng nano siêu nhỏ chỉ từ 40 đến 60 nanomét, chúng được tách dời nhau nhờ 3 lớp vỏ bọc mang tính bazơ yếu, khi vào đến dạ dày gặp môi trường axít mạnh, ngay lập tức lớp vỏ bọc bazơ yếu bị phá vỡ, giải phóng nano curcumin, các phần tử nano curcumin siêu nhỏ này có thể thẩm thấu ngay qua lớp màng tế bào vào cơ thể, phát huy tối đa hiệu quả và tác dụng của curcumin trong phòng chống và hỗ trợ điều trị bệnh.
-				</div>
-				<div data-wow-delay="2s" class="wow bounceInLeft con3"><img src="images/con3.png"></div>
-				<div data-wow-delay="2.7s" class="wow bounceInRight text4" style="padding:5px;">
-					<strong>-</strong>&nbsp;&nbsp;Sản phẩm của chúng tôi được chiết suất 100% từ nghệ tự nhiên được trồng ở khu vực nghệ an, Hưng yên, hoàn toàn là nghệ của Việt Nam. CURCUMIN trong nghệ của việt nam được các nhà khoa học trên thế giới đánh giá là tốt nhất thế giới.
-				</div>
-				<div data-wow-delay="2.5s" class="wow bounceInRight con4"><img src="images/con4.png"></div>
-				<div data-wow-delay="3.2s" class="wow bounceInUp text5" style="padding:5px;">
-					<strong>-</strong>&nbsp;&nbsp;Một điều đặc biệt nữa là sản phẩm của chúng tôi chứa 14,2% curcumin, còn lại là phụ liệu vừa đủ được nhập khẩu từ Đức và Mỹ, toàn bộ tinh dầu nghệ đã được tách bỏ do vậy đây là một sản phẩm cao cấp, các bạn không lo bị nóng (khi dùng các sản phẩm từ nghệ mà cơ thể bị nóng trong là do tác dụng phụ của tinh dầu nghệ)
-				</div>
-				<div data-wow-delay="3s" class="wow bounceInUp con5"><img src="images/con5.png"></div>
-			</div>
-		</div>
-	</section>
-</div>
-<div class="getleads">
-	<section id="cta1-3" class="p-y-md bg-edit" data-selector="block" style="background: url('images/bghome.jpg') top center; padding-bottom:10px;">
-		<div class="container">
-			<div class="row">
-				<p style=" font-size:18px; padding:5px; font-weight:bold; color:#fff; text-align:center; text-transform:uppercase">Ý kiến chuyên gia và khách hàng</p>
-				<section class="slider">
-					<div class="flexslider carousel">
-						<ul class="slides" style="margin:auto;">
-							<li>
-								<img src="images/customer/A1.png" />
-								<p>Nano Curcumin dạng dung dịch có tác dụng với người bị viêm loét dạ dày, đại
-									tràng, men gan...
-									<a class="box inline" href="#inline_content1">
-										Chi tiết
-									</a>
-								</p>
-
-								<!-- This contains the hidden content for inline calls -->
-								<div style='display:none'>
-									<div id='inline_content1' style='padding:10px; background:#fff;'>
-										<h3 style="text-align:center; "><strong>PGS – TS Lê Văn Thảo - Nguyên GD Bệnh Viện Ung Bướu Hà Nội - PCT thường trực hội Ung Thư Hà Nội</strong></h3>
-										<img src="images/t-bg.png" alt="#" style="width:100%; margin-bottom: 20px;">
-										<p>
-											Nano Curcumin dạng dung dịch có tác dụng với người bị viêm loét dạ dày, đại
-											tràng, men gan cao theo y học phương Đông đã được đúc kết. Với các đặc điểm của
-											Nano Curcumin có thể hỗ trợ điều trị ung thư khi bệnh nhân ung thư được điều trị
-											bằng phương pháp đặc hiệu
-										</p>
-									</div>
-								</div>
-								<div class="info">
-									<span>PGS – TS Lê Văn Thảo</span>
-									<p>Nguyên GD Bệnh Viện Ung Bướu Hà Nội</p>
-									<p>PCT thường trực hội Ung Thư Hà Nội</p>
-								</div>
-							</li>
-
-
-							<li>
-								<img src="images/customer/A2.jpg" />
-								<p>Cách đây hơn một năm qua sự giới thiệu của anh Hải Minh thì tôi được biết đến sản phẩm dung dịch Nano Curcumin, sau một thời gian sử dụng đều đặn mỗi ngày 2 lần vào buổi sáng...
-									<a class="box inline" href="#inline_content3">
-										Chi tiết
-									</a>
-								</p>
-
-								<!-- This contains the hidden content for inline calls -->
-								<div style='display:none'>
-									<div id='inline_content3' style='padding:10px; background:#fff;'>
-										<h3 style="text-align:center; "><strong>Ông Đàm Xuân Lâm - Phó Tổng Giám Đốc KPMG</strong></h3>
-										<img src="images/t-bg.png" alt="#" style="width:100%; margin-bottom: 20px;">
-										<p>
-											Cách đây hơn một năm qua sự giới thiệu của anh Hải Minh thì tôi được biết đến sản phẩm dung dịch Nano Curcumin, sau một thời gian sử dụng đều đặn mỗi ngày 2 lần vào buổi sáng và buổi tối, tôi cảm nhận được sự hiệu quả của sản phẩm trên cả kỳ vọng của tôi.
-										</p>
-									</div>
-								</div>
-								<div class="info">
-									<span>Ông Đàm Xuân Lâm</span>
-									<p>Phó Tổng Giám Đốc KPMG</p>
-								</div>
-							</li>
-
-
-							<li>
-								<img src="images/customer/A3.jpg" />
-								<p>Do đặc thù của công việc nên tôi thường xuyên phải đi tiếp khách nên không
-									thể tránh khỏi bia rượu. Trong lần khám sức khỏe vừa rồi tôi phát hiện ra men gan
-									của mình tăng rất cao đột biến,...
-									<a class="box inline" href="#inline_content3">
-										Chi tiết
-									</a>
-								</p>
-
-								<!-- This contains the hidden content for inline calls -->
-								<div style='display:none'>
-									<div id='inline_content3' style='padding:10px; background:#fff;'>
-										<h3 style="text-align:center; "><strong>Ông Võ Thanh Bình - Tập đoàn dầu khí Việt Nam</strong></h3>
-										<img src="images/t-bg.png" alt="#" style="width:100%; margin-bottom: 20px;">
-										<p>
-											Do đặc thù của công việc nên tôi thường xuyên phải đi tiếp khách nên không
-											thể tránh khỏi bia rượu. Trong lần khám sức khỏe vừa rồi tôi phát hiện ra men gan
-											của mình tăng rất cao đột biến, gấp 3 lần cho phép. Sau khi tìm hiểu qua tư vấn của
-											bác sĩ và các sản phẩm điều trị men gan trên thị trường, tôi đã lựa chọn dùng thử sản
-											phẩm Nano Curcumin OIC dạng dung dịch cho kết quả rất tốt và thấy rằng men gan
-											giảm về mức cho phép.
-										</p>
-									</div>
-								</div>
-
-
-								<div class="info">
-									<span>Ông Võ Thanh Bình</span>
-									<p>Tập đoàn dầu khí Việt Nam</p>
-								</div>
-							</li>
-
-
-							<li>
-								<img src="images/customer/A4.jpg" />
-								<p>Khi tôi sinh con, mẹ tôi rất vất vả. Bà đã dã nghệ tươi để trưng cất và xoa lên cơ thể để tránh các vấn đề hậu sản. Tuy nhiên tôi cảm thấy khó chịu khi bôi các dung dịch đó trên người trong thời gian dài....
-									<a class="box inline" href="#inline_content4">
-										Chi tiết
-									</a>
-								</p>
-
-								<!-- This contains the hidden content for inline calls -->
-								<div style='display:none'>
-									<div id='inline_content4' style='padding:10px; background:#fff;'>
-										<h3 style="text-align:center; "><strong>Bà Đỗ Tú Anh - Tổng Thư Ký Hội Doanh nghiệp trẻ Hà Nội</strong></h3>
-										<img src="images/t-bg.png" alt="#" style="width:100%; margin-bottom: 20px;">
-										<p>
-											Khi tôi sinh con, mẹ tôi rất vất vả. Bà đã dã nghệ tươi để trưng cất và xoa lên cơ thể để tránh các vấn đề hậu sản. Tuy nhiên tôi cảm thấy khó chịu khi bôi các dung dịch đó trên người trong thời gian dài. Cho đến khi biết đến sản phẩm Nano Curcumin dạng dung dịch tôi nghĩ rằng các bà mẹ sau khi sinh sử dụng sản phẩm này sẽ mang lại hiệu quả và giúp bồi bỏ sức khỏe.
-										</p>
-									</div>
-								</div>
-
-
-								<div class="info">
-									<span>Bà Đỗ Tú Anh</span>
-									<p>Tổng Thư Ký Hội Doanh nghiệp trẻ Hà Nội</p>
-								</div>
-							</li>
-
-
-							<li>
-								<img src="images/customer/A5.jpg" />
-								<p>Tôi là người hoạt động trong ngành nghiên cứu nên các sản phẩm mà tôi sử dụng đều được nghiên cứu, đo đếm rất là cẩn thận. Tôi được biết theo Tạp Chí Y Khoa Thế Giới, ..
-
-									<a class="box inline" href="#inline_content5">
-										Chi tiết
-									</a>
-								</p>
-
-								<!-- This contains the hidden content for inline calls -->
-								<div style='display:none'>
-									<div id='inline_content5' style='padding:10px; background:#fff;'>
-										<h3 style="text-align:center; "><strong>Ông Nguyễn Minh Giáp - Tổng Giám Đốc EVD - CEO Câu Lạc Bộ West 6536</strong></h3>
-										<img src="images/t-bg.png" alt="#" style="width:100%; margin-bottom: 20px;">
-										<p>
-											Tôi là người hoạt động trong ngành nghiên cứu nên các sản phẩm mà tôi sử dụng đều được nghiên cứu, đo đếm rất là cẩn thận. Tôi được biết theo Tạp Chí Y Khoa Thế Giới, đối với curcumin để ngấm vào người đủ liều lượng bạn cần phải sử dụng 1,3 – 2,7kg/ngày, đây là điều khó khăn. Khi biết đến sản phẩm Nano Curcumin, tôi thấy có sự khác biệt đối với thị trường đặc biệt là ở dạng dung dịch. So sánh với các sản phẩm khác tôi thấy rằng, có những sản phẩm không hòa tan đọng ở phía đáy, còn với sản phẩm Nano Curcumin, tôi vô cùng ngạc nhiên khi cho kết quả hòa tan tuyệt đối. Đối với sản phẩm này, nên sử dụng cho các bệnh về dạ dày và niêm mạc dạ dày rất là tốt. Với kinh nghiệm của tôi sử dụng trong 3 lọ này theo liều lượng được khuyến cáo sẽ mang lại hiệu quả tuyệt đối.
-										</p>
-									</div>
-								</div>
-
-
-								<div class="info">
-									<span>Ông Nguyễn Minh Giáp</span>
-									<p>Tổng Giám Đốc EVD</p>
-									<p>CEO Câu Lạc Bộ West 6536</p>
-								</div>
-							</li>
-
-
-							<li>
-								<img src="images/customer/A6.jpg" />
-								<p>Tôi đã mắc căn bệnh dạ dày từ lâu và gây ra nhiều khó khăn trong cuộc sống. Kể từ
-									khi biết đến và sử dụng sản phẩm Nano Curcumin đã giúp căn bệnh của tôi cải thiện
-									rất nhiều.
-								</p>
-								<div class="info">
-									<span>Ông Nguyễn Xuân Phú</span>
-									<p>Chủ tịch Tập Đoàn SUNHOUSE</p>
-									<p>PCT Hội Doanh nghiệp Trẻ Hà Nội</p>
-								</div>
-							</li>
-
-
-						</ul>
-					</div>
-				</section>
-
-				<script>
-					$(".inline").colorbox({inline:true, width:"95%"});
-				</script>
-				<!-- FlexSlider -->
-				<script defer src="js/jquery.flexslider.js"></script>
-
-				<script type="text/javascript">
-					//					$(function(){
-					//						SyntaxHighlighter.all();
-					//					});
-					$(window).load(function(){
-						$('.flexslider').flexslider({
-							animation: "slide",
-							animationLoop: false,
-							itemWidth: 300,
-							itemMargin: 5,
-							minItems: 1,
-							maxItems: 3,
-							start: function(slider){
-								$('body').removeClass('loading');
-							}
-						});
-					});
-				</script>
-			</div>
-
-
-
-	</section>
-</div>
-
-<div class="getleads">
-	<section id="testimonials3-1" class="p-y-lg bg-edit" data-selector="block" style="background-color:#ffffff;border-radius:0px;padding-top:50px;padding-bottom:50px;">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2">
-					<div class="text-center wow fadeIn" style="visibility: visible; animation: fadeIn; -webkit-animation: fadeIn;">
-						<h2 data-selector="text1" style="color:#00923f; text-transform:uppercase; font-size:28px;">quy trình làm ra sản phẩm nano curcumin</h2>
-						<p class="lead" data-selector="text2" style="color:#333333;font-size:18px;margin-bottom:10px;">Chúng tôi đã và đang nỗ lực hết mình trong việc mang đến những sản phẩm tốt nhất chăm sóc sức khỏe cho mọi người!</p>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div id="quytrinh">
-					<div data-wow-delay="1s" class="wow zoomIn quytrinh"><img src="images/nghe-tuoi.png"> </div>
-					<div data-wow-delay="1.2s" class="wow zoomIn quytrinhx"><img src="images/quy-trinh1.png"> </div>
-					<div data-wow-delay="1.5s" class="wow zoomIn quytrinh1"><img src="images/nut1.png"> </div>
-					<div data-wow-delay="1.7s" class="wow zoomIn qttext1">
-						<p>NGHỆ TƯƠI</p>
-						<p>Nghệ thu hoạch từ tự nhiên, làm sạch và sơ chế, sấy khô</p>
-					</div>
-					<div data-wow-delay="2s" class="wow zoomIn quytrinh2"><img src="images/nut234.png"> </div>
-					<div data-wow-delay="2.2s" class="wow bounceInRight qttext2">
-						<p>BỘT NGHỆ</p>
-						<p>Nghệ được say nghiền ra dưới dạng bột</p>
-					</div>
-					<div data-wow-delay="2.5s" class="wow zoomIn quytrinh3"><img src="images/nut234.png"> </div>
-					<div data-wow-delay="2.7s" class="wow bounceInLeft qttext3">
-						<p>TINH BỘT NGHỆ</p>
-						<p>nghệ sau khi được tách hết dầu nghệ và các tạp chất khác</p>
-					</div>
-					<div data-wow-delay="3s" class="wow zoomIn quytrinh4"><img src="images/nut234.png"> </div>
-					<div data-wow-delay="3.2s" class="wow bounceInLeft qttext4">
-						<p>CURCUMIN</p>
-						<p>Tinh bột nghệ sau khi được loại bỏ hoàn toàn các chất khác, còn lại là curcumin với tỉ lệ trên 95%</p>
-					</div>
-					<div data-wow-delay="3.5s" class="wow bounceInUp quytrinh6"><img src="images/nanocurcumin.png"> </div>
-					<div data-wow-delay="4s" class="wow zoomIn quytrinh5"><img src="images/nut5.png"> </div>
-					<div data-wow-delay="4.2s" class="wow fadeInRight qttext5">
-						<p>NANO CURCUMIN</p>
-						<p>Điều chế từ curcumin có tỉ lệ thành phần cao hơn 95%, tạo thành Nano curcumin</p>
-					</div>
-
-				</div>
-				<div id="qtmobile"><img src="images/quytrinh.png"></div>
-			</div>
-		</div>
-	</section>
-</div>
-<div class="line"></div>
-<div class="getleads">
+<!--1.header_banner-->
+<div id="header-banner">
 	<div class="container">
-		<div class="row" style="padding-top:30px; padding-bottom:30px; text-align:center">
-			<div class="col-md-4">
-				<img src="images/s1.jpg">
-				<p style="color:#00923f; font-size:20px; padding-top:15px;">Thiết bị đạt chuẩn GMP, nhập khẩu từ G7, Nga hoặc Israel</p>
+		<!--top 1.header_banner-->
+		<div class="top">
+			<!--logo luxury-->
+			<div class="logo">
+				<img src="img/1.header_banner/1.header/luxury_travel_logo.png" alt="luxury_travel_logo">
 			</div>
-			<div class="col-md-4">
-				<img src="images/s2.jpg">
-				<p style="color:#00923f; font-size:20px; padding-top:15px;">Dược liệu đạt chuẩn USP hoặc EP</p>
+			<!--menu-->
+			<div class="menu">
+				<div>
+					<i class="material-icons">menu</i>
+				</div>
 			</div>
-			<div class="col-md-4">
-				<img src="images/s3.jpg">
-				<p style="color:#00923f; font-size:20px; padding-top:15px;">Nguyên liệu từ Curcuminoid nguồn gốc Nghệ vàng của Việt nam đạt 3 pic</p>
+		</div>
+
+		<!--heading-->
+		<div class="heading">
+			<h2>We're not a tour guide</h2>
+			<h1>We create unique experiences</h1>
+		</div>
+
+		<!--button-->
+		<div class="button">
+			<a class="btn-radius">Design my trip</a>
+
+		</div>
+
+		<!--button circle-->
+		<div class="button-circle">
+			<div class="button-circle2">
+				<a class="btn-circle" href="#form">
+					<i class="material-icons">keyboard_arrow_down</i>
+				</a>
 			</div>
 		</div>
 	</div>
 </div>
 
+<!--2.introduction-->
+<div id="introduction">
+	<div class="container">
+		<!--welcome-->
+		<div class="welcome">
+			<h2>Welcome to Luxury Travel</h2>
+			<p>We, a local travel agency, offer travel exclusively to Southeast Asia, one of the world’s most diverse and compelling region.</p>
+			<p>We are proud to report that we have 99% sastification rate with much of our business</p>
+			<p>coming from referral and recommendations.</p>
+			<hr>
+		</div>
 
-<div class="getleads">
-	<section id="contact3-2" class="p-y-lg contact bg-edit bg-dark" data-selector="block" style="background: url('images/bgft.jpg') top center;border-radius:0px;padding-top:20px;padding-bottom:50px;">
-		<div class="container">
+		<!--group introduction-->
+		<div class="group-introduction">
 			<div class="row">
-				<div class="col-md-8 col-md-offset-2">
-					<div class="section-header text-center text-white wow fadeIn" style="visibility: visible; animation: fadeIn; -webkit-animation: fadeIn;">
-						<h2 data-selector="text1" style="font-weight:400;color:#ffffff;font-size:36px;margin-bottom:10px;"></h2>
-						<p class="lead" data-selector="text2" style="font-weight:400;color:#ffffff;font-size:22px;margin-bottom:10px;"></p>
+				<!--1-->
+				<div class="col-md-4 box-introduction">
+					<div class="icon">
+						<img src="img/custom/2.introduction/search-on-map-ultrathin-sign.png" alt="search_icon"/>
+					</div>
+					<div class="content">
+						<h3>We are local tour operator</h3>
+						<p>We are pleased to bring to you and your loved ones the best holidays at best prices without any middleman cost.</p>
+					</div>
+				</div>
+
+				<!--2-->
+				<div class="col-md-4 box-introduction">
+					<div class="icon">
+						<img src="img/custom/2.introduction/global-geolocalization-ultrathin-interface-sign.png" alt="global_icon"/>
+					</div>
+					<div class="content">
+						<h3>We are travel expert</h3>
+						<p>With more than 12 years of experiences, our knowledgeable staffs will advise you the most suitable and wonderful itineraries.</p>
+					</div>
+				</div>
+
+				<!--3-->
+				<div class="col-md-4 box-introduction">
+					<div class="icon">
+						<img src="img/custom/2.introduction/logistics-international-service-by-airplane.png" alt="airplane_icon"/>
+					</div>
+					<div class="content">
+						<h3>We create unique experiences</h3>
+						<p>We understand that you are unique and we try our best to help you have unique journey.
+						</p>
 					</div>
 				</div>
 			</div>
-			<div class="row c2 text-white" style="text-align:center">
-				<div class="col-md-6">
-					<h4 class="f-w-900 m-b-md" data-selector="text3" style="color:#ffffff;font-size:20px;margin-bottom:10px; text-transform:none; font-weight:normal;">Hãy để lại thông tin bên dưới chúng tôi sẽ sớm
-						liên hệ lại tư vấn cho bạn:</h4>
-					<form class="horizontal form-white" id="contactform" method="post" action="index.php#contact3-2">
-						<?php if(isset($message)){ ?>
-							<p style="color: red; "> <?php echo $message; ?></p>
-						<?php } ?>
+		</div>
+	</div>
+</div>
 
-						<div class="form-group">
-							<input id="name" class="form-control" name="name" value="<?php if(isset($_POST['name'])) { echo $_POST['name']; } ?>" type="text" required placeholder="Họ và tên *:" required oninvalid="setCustomValidity('Họ và tên không để trống')" oninput="setCustomValidity('')">
-						</div>
-						<div class="form-group">
-							<input id="email" class="form-control" name="email" value="<?php if(isset($_POST['email'])) { echo $_POST['email']; } ?>" type="text" required placeholder="Địa chỉ email *:" required pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" oninvalid="setCustomValidity('Địa chỉ email không chính xác!')" oninput="setCustomValidity('')">
-						</div>
-						<div class="form-group">
-							<input id="phone" class="form-control"name="phone" value="<?php if(isset($_POST['phone'])) { echo $_POST['phone']; } ?>" type="text" required placeholder="Số điện thoại *:" required pattern="^[0-9]{10,12}$" oninvalid="setCustomValidity('Số điện thoại không đúng')" oninput="setCustomValidity('')">
-						</div>
-						<input type="hidden" name="aff_source" id="aff_source" class="aff_source" value=""/>
-						<input type="hidden" name="aff_sid" id="aff_sid" class="aff_sid" value=""/>
-						<div class="form-group m-b-0">
-							<button type="submit" class="btn btn-green wow pulse" data-wow-iteration="2" data-selector="btn" style="font-weight: 700; color: rgb(255, 255, 255); background-color: rgb(249, 158, 26); border-width: 0px; border-style: solid; padding: 20px; font-size: 16px; max-width: 400px; visibility: visible; animation-iteration-count: 2; animation-name: pulse;">NHẬN TƯ VẤN NGAY</button>
-						</div>
-					</form>
-				</div>
-				<div class="col-md-6">
-					<img src="images/giaychungnhan.jpg" style="height: 440px; width: 400px">
-					<div style="margin-top: 10px;">hình ảnh bằng dộc quyền sáng chế</div>
-				</div>
+<!--3.customer-->
+<div id="customer">
+	<div class="container">
+		<div class="box-customer">
+			<div  id="content_customer" >
 			</div>
+			<div class="slide_topic">
+				<div id="li_1" onclick="showSlide(1, '#li_1');" class="li"></div>
+				<div id="li_2"  onclick="showSlide(2, '#li_2');" class="li active"></div>
+				<div id="li_3"  onclick="showSlide(3, '#li_3');" class="li"></div>
+			</div>
+		</div>
+	</div>
+</div>
 
-			<div class="row" style="border-top: 5px solid #f99e1a; margin-top:30px;">
-				<div class="col-md-4">
-					<p style="padding-top:20px;"><img src="images/logo-white.png"></p>
-					<p style="color:#fff; font-size:13px; padding-top:6px;margin:0;">Nhathai New Technology JSC.,</p>
-					<p style="color:#fff; font-size:13px;margin:0;">Oranges Informatic Communication (OIC)</p>
+<!--4.tour-->
+<div id="tour" >
+	<div class="container">
+		<div class=" heading">
+			<h2>Hot Summer Deals</h2>
+			<div class="hr"></div>
+			<p>It’s time to discover this compelling regions. We ensure to offer the best services with our extensive local knowledge and passionate.</p>
+		</div>
+		<!--box-tour-->
+
+		<div class="group-tour">
+			<div class="row">
+				<div class="col-lg-6">
+					<!--1-->
+					<div class="box-tour">
+						<div class="cover">
+							<div class="left">
+								<img src="img/4.tour/img4.jpg" alt="tour_escape_hot_time_to_vietnam"/>
+							</div>
+							<div class="right">
+								<h3>Escape hot time to Vietnam</h3>
+								<div class="time">
+									<div class="icon">
+										<img src="img/custom/4.tour/calendar-page-empty.png" alt="calenda"/>
+									</div>
+									<p>18 days</p>
+									<p>17 nights</p>
+								</div>
+								<p>Discover the best of Vietnam and enjoy wonderful time relaxing on Nha Trang beach</p>
+								<div class="price">
+									<p>from 2293$</p>
+								</div>
+								<div class="button">
+									<a class="btn-arrow">Discover  >></a>
+								</div>
+							</div>
+							<div class="clear-fix"></div>
+						</div>
+					</div>
+
+					<!--2-->
+					<div class="box-tour">
+						<div class="cover">
+							<div class="left">
+								<img src="img/4.tour/img2.jpg" alt="tour_best_of_vietnam_cambodia"/>
+							</div>
+							<div class="right">
+								<h3>Best of Vietnam Cambodia </h3>
+								<div class="time">
+									<div class="icon">
+										<img src="img/custom/4.tour/calendar-page-empty.png" alt="calenda"/>
+									</div>
+									<p>14 days</p>
+									<p>13 nights</p>
+								</div>
+								<p>Best way to see two countries’ treasures and immerse in local cultures and history </p>
+								<div class="price">
+									<p>from 2092$</p>
+								</div>
+								<div class="button">
+									<a class="btn-arrow">Discover  >></a>
+								</div>
+							</div>
+							<div class="clear-fix"></div>
+						</div>
+					</div>
 				</div>
-				<div class="col-md-4">
-					<p style="padding-top:20px;color:#fff;"><b>Liên hệ:</b></p>
-					<p style="color:#fff; font-size:13px;margin:0;"> <strong>Công ty cổ phần giao nhận ISO</strong></p>
-					<!--					<p style="color:#fff; font-size:13px;margin:0;">Tel: 01666.555.888</p>-->
-					<p style="color:#fff; font-size:13px;margin:0;">Địa chỉ: P1801 khu A tòa nhà M3M4 số 91 Nguyễn Chí Thanh, Hà Nội</p>
-					<p style="color:#fff; font-size:13px;margin:0;">&nbsp;</p>
-				</div>
-				<div class="col-md-4">
-					<p style="padding-top:20px; padding-bottom:8px;color:#fff;"><b>Find us:</b></p>
-					<a href="#"><img src="images/gplus.png"></a>
-					<a href="#"><img src="images/icon-face.png"></a>
-					<a href="#"><img src="images/icon-ytb.png"></a>
-					<a href="#"><img src="images/icon-imp.png"></a>
+
+				<div class="col-lg-6">
+					<!--3-->
+					<div class="box-tour">
+						<div class="cover">
+							<div class="left">
+								<img src="img/4.tour/img1.jpg" alt="tour_vietnam_authentic_18_days"/>
+							</div>
+							<div class="right">
+								<h3>Explore Vietnam from authentic experiences to relaxation </h3>
+								<div class="time">
+									<div class="icon">
+										<img src="img/custom/4.tour/calendar-page-empty.png" alt="calenda"/>
+									</div>
+									<p>18 days</p>
+									<p>17 nights</p>
+								</div>
+								<p>Experience the true sights of Vietnam and have wonderful time your way </p>
+								<div class="price">
+									<p>from 2579$</p>
+								</div>
+								<div class="button">
+									<a class="btn-arrow">Discover  >></a>
+								</div>
+							</div>
+							<div class="clear-fix"></div>
+						</div>
+
+					</div>
+
+					<!--4-->
+					<div class="box-tour">
+						<div class="cover">
+							<div class="left">
+								<img src="img/4.tour/img2.jpg" alt="tour_highlights_of_vietnam"/>
+							</div>
+							<div class="right">
+								<h3>Highlights of Vietnam </h3>
+								<div class="time">
+									<div class="icon">
+										<img src="img/custom/4.tour/calendar-page-empty.png" alt="calenda"/>
+									</div>
+									<p>14 days</p>
+									<p>13 nights</p>
+								</div>
+								<p>Discover Vietnam from North to South for an exciting and enriching trip</p>
+								<div class="price">
+									<p>from 2161$</p>
+								</div>
+								<div class="button">
+									<a class="btn-arrow">Discover  >></a>
+								</div>
+							</div>
+							<div class="clear-fix"></div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</section>
+	</div>
 </div>
-<!---->
-<!--<footer id="footer">-->
-<!--	<div class="btn-group dropup btn-call-us">-->
-<!--		<a href="tel:01666555888" style="color: #ffffff;" class="btn dropdown-toggle call-us"><strong>01666.555.888</strong></a>-->
+
+<!--5.benefit-->
+<div id="benefit" class="container">
+	<div class="row">
+		<!--image-->
+		<div class="col-lg-6 left">
+			<img src="img/5.benefit/100_private tailormade.jpg" alt="car"/>
+		</div>
+
+		<!--benefit-->
+		<div class="col-lg-6 right">
+			<h2>100% private tailor-made holidays</h2>
+			<!--box-benefit-->
+			<div class="box-benefit">
+				<!--1-->
+				<div class="item">
+					<div class="left">
+						<div class="number">
+							1
+						</div>
+					</div>
+					<div class="text">
+						<p>Flexible itinerary: The holiday is designed around your interest, time, need and budget. You are the one who decide when and where to go, where to stay.</p>
+					</div>
+				</div>
+
+				<!--2-->
+				<div class="item">
+					<div class="left">
+						<div class="number">
+							2
+						</div>
+					</div>
+					<div class="text">
+						<p>Personal services: You are more comfortable with private car and guides as well as support services 24 hours per day.</p>
+					</div>
+				</div>
+
+				<!--3-->
+				<div class="item">
+					<div class="left">
+						<div class="number">
+							3
+						</div>
+					</div>
+					<div class="text">
+						<p>Unique Experiences: You have more chance to discover the destination your way, avoid shopping stops and take part in your favorite activities.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="button">
+				<a class="btn-arrow">Tailor-make my holiday>></a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--6.procedure-->
+<div id="procedure">
+	<div class="heading">
+		<h2>"Always reliable and trustful"</h2>
+		<p>Begin your dream holiday with very simple steps. We keep improving our processes to reduce your time and cost but bring back the highest value.</p>
+	</div>
+	<!--group-procedure-->
+	<div class="container group-procedure">
+		<div class="row">
+			<!--box-procedure-->
+			<!--1-->
+			<div class="xcot-five box-procedure">
+				<div class="image">
+					<div class="circle">
+						<img src="img/6.procedure/logistics-verification-square-ultrathin-outline.png" alt="logistics"/>
+						<div class="number">1</div>
+					</div>
+					<p>Send us your inquiry</p>
+				</div>
+			</div>
+
+			<!--line-vertical-->
+			<div class="line-vertical"></div>
+
+
+			<!--2-->
+			<div class="xcot-five box-procedure">
+				<div class="image">
+					<div class="circle">
+						<img src="img/6.procedure/delivery-time.png" alt="delivery"/>
+						<div class="number">2</div>
+					</div>
+					<p>Get the first draft
+						within 24 hours</p>
+				</div>
+			</div>
+
+			<!--line-vertical-->
+			<div class="line-vertical"></div>
+
+
+			<!--3-->
+			<div class="xcot-five box-procedure active">
+				<div class="image">
+					<div class="circle">
+						<img src="img/6.procedure/settings.png" alt="settings"/>
+						<div class="number">3</div>
+					</div>
+					<p>Customize your holiday</p>
+				</div>
+			</div>
+
+			<!--line-vertical-->
+			<div class="line-vertical"></div>
+			<!--line-horizontal-->
+
+
+			<!--4-->
+			<div class="xcot-five box-procedure">
+				<div class="image">
+					<div class="circle">
+						<img src="img/6.procedure/profits.png" alt="profits"/>
+						<div class="number">4</div>
+					</div>
+					<p>Make payment through secure system</p>
+				</div>
+			</div>
+
+			<!--line-vertical-->
+			<div class="line-vertical"></div>
+			<!--line-horizontal-->
+
+
+			<!--5-->
+			<div class="xcot-five box-procedure">
+				<div class="image">
+					<div class="circle">
+						<img src="img/6.procedure/sunbed.png" alt="sunbed"/>
+						<div class="number">5</div>
+					</div>
+					<p>Get ready for your dream trips</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<!--line-horizontal-->
+			<div class="xcot-five">
+				<div class="line-horizontal">
+				</div>
+			</div>
+			<!--line-horizontal-->
+			<div class="xcot-five">
+				<div class="line-horizontal">
+				</div>
+			</div>
+			<!--line-horizontal-->
+			<div class="xcot-five">
+				<div class="line-horizontal">
+				</div>
+			</div>
+			<!--line-horizontal-->
+			<div class="xcot-five">
+				<div class="line-horizontal">
+				</div>
+			</div>
+			<!--line-gia-->
+			<div class="xcot-five">
+			</div>
+		</div>
+
+	</div>
+</div>
+</div>
+
+
+<!--7.form-->
+<div id="form">
+	<div class="background"></div>
+	<div class="recommendation">
+		<div class="head">
+			<img src="img/7.form/avatar.png" alt="avatar"/>
+			<p>﻿Hi, my name is Duong!</p>
+		</div>
+	</div>
+	<div class="text">
+		<p>I am Travel Consultant of Luxury Travel. Southeast Asia is the charming land, full of surprises and I believe you will never regret visitng here. Let's make your journey be a blockbuster, you are the main character and create your own story.</p>
+		<p>Please fill out the form below and we will reply you within 24 hours.</p>
+	</div>
+	<!--group-form-->
+	<form class="container" method="post" action="index.php#form" id="submit_form" >
+
+		<?php if(isset($message)){ ?>
+			<p style="color: red; "> <?php echo $message; ?></p>
+		<?php } ?>
+
+		<div class="row">
+			<div class="col-md-4">
+				<!--last_name-->
+				<div class="label">
+					<label for="last_name">Last Name</label>
+					<p class="red">(*)</p>
+				</div>
+				<div class="input">
+					<input type="text" id="last_name" name="last_name" required oninvalid="setCustomValidity('Last Name is mandatory')" oninput="setCustomValidity('')">
+				</div>
+			</div>
+			<div class="col-md-4">
+				<!--first_name-->
+				<div class="label">
+					<label for="first_name">First Name</label>
+					<p class="red">(*)</p>
+				</div>
+				<div class="input">
+					<input type="text" id="first_name" name="first_name" required oninvalid="setCustomValidity('First Name is mandatory')" oninput="setCustomValidity('')">
+				</div>
+			</div>
+			<div class="clear-fix"></div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				<!--email-->
+				<div class="label">
+					<label for="email">Email</label>
+					<p class="red">(*)</p>
+				</div>
+				<div class="input">
+					<input type="email" id="email" name="email" required  required pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" oninvalid="setCustomValidity('Email not in right format')" oninput="setCustomValidity('')">
+				</div>
+			</div>
+			<div class="col-md-4">
+				<!--telephone-->
+				<div class="label">
+					<label for="phone">Telephone</label>
+					<p class="red">(We will call you back for free)</p>
+				</div>
+				<div class="input">
+					<input type="tel" id="phone" name="telephone" >
+
+				</div>
+			</div>
+			<div class="col-md-4">
+
+				<!--nationality-->
+				<!--chua_lam-->
+				<div class="label">
+					<label for="nationality">Nationality</label>
+
+				</div>
+				<div class="input">
+					<select  class="form-control bfh-countries custom_input" data-country="US" name="countries"></select>
+				</div>
+			</div>
+			<div class="clear-fix"></div>
+		</div>
+		<div class="margin15"></div>
+		<div class=" row">
+
+			<div class="input">
+				<!--destinations-->
+				<div class="item label">
+					<label for="destinations" required oninvalid="setCustomValidity('Destinations is mandatory')" oninput="setCustomValidity('')">Destinations </label>
+					<p class="red">(*)</p>
+				</div>
+				<!--1.vn-->
+				<div class="item">
+					<input type="checkbox" id="vietnam" name="destinations[]" value="Vietnam" >
+					<label for="vietnam">Vietnam</label>
+				</div>
+
+				<!--2.cam-->
+				<div class="item">
+					<input type="checkbox" id="cambodia" name="destinations[]" value="cambodia" >
+					<label for="cambodia">Cambodia</label>
+
+				</div>
+				<!--3.lao-->
+				<div class="item">
+					<input type="checkbox" id="laos" name="destinations[]" value="laos" >
+					<label for="laos">Laos</label>
+
+				</div>
+				<!--4.mya-->
+				<div class="item">
+					<input type="checkbox" id="myanmar" name="destinations[]" value="myanmar" >
+					<label for="myanmar">Myanmar</label>
+
+				</div>
+				<!--5.thai-->
+				<div class="item">
+					<input type="checkbox" id="thailand" name="destinations[]" value="thailand" >
+					<label for="thailand">Thailand</label>
+
+				</div>
+			</div>
+			<div class="clear-fix"></div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<!--email-->
+				<div class="label">
+					<label for="duration">Duration of the strip</label>
+					<p class="red">(*)</p>
+				</div>
+				<div class="input">
+					<input type="text" id="duration" name="duration" placeholder="14 nights" required oninvalid="setCustomValidity('Duration of the strip is mandatory')" oninput="setCustomValidity('')">
+				</div>
+			</div>
+			<div class="col-md-4">
+				<!--email-->
+				<div class="label">
+					<label for="departure">Departure date</label>
+					<p class="red">(*)</p>
+				</div>
+				<div class="input">
+					<div id="date_input" data-name="date" class="bfh-datepicker " data-format="y-m-d" data-date="today" required oninvalid="setCustomValidity('Departure date is mandatory')" oninput="setCustomValidity('')">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<!--email-->
+				<div class="label">
+					<label for="flexible">I'm flexible on the date </label>
+					<p class="red">(*)</p>
+				</div>
+				<div class="input">
+					<select class="selectpicker" name="flexible">
+						<option value="Yes">Yes</option>
+						<option value="No">No</option>
+					</select>
+				</div>
+			</div>
+			<div class="clear-fix"></div>
+		</div>
+		<div class="row">
+			<div class="col-md-8 ">
+				<div class="row">
+					<div class="col-md-4">
+						<!--email-->
+						<div class="label">
+							<label for="people">The number of people</label>
+							<p class="red"></p>
+						</div>
+						<div class="input">
+							<input type="number" placeholder="Adult" id="people" name="adult">
+						</div>
+					</div>
+					<div class="col-md-4">
+						<!--email-->
+						<div class="label">
+							<label >&nbsp;</label>
+							<p class="red"></p>
+						</div>
+						<div class="input">
+							<input type="number" placeholder="Children above 12 years old" name="children_above">
+						</div>
+					</div>
+					<div class="col-md-4">
+						<!--email-->
+						<div class="label">
+							<label>&nbsp;</label>
+							<p class="red"></p>
+						</div>
+						<div class="input">
+							<input type="number" placeholder="Children below 12 years old" name="children_below">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="clear-fix"></div>
+		</div>
+		<div class="row ">
+			<div class="col-md-4">
+				<!--email-->
+				<div class="label">
+					<label for="travel">Travel Style</label>
+					<p class="red">(*)</p>
+				</div>
+				<div class="input">
+					<select class="selectpicker"name="travel_style[]" multiple required oninvalid="setCustomValidity('Travel Style is mandatory')" oninput="setCustomValidity('')">
+						<option selected>Beach vacation</option>
+						<option selected>Culture</option>
+						<option>space 1</option>
+						<option>space 2</option>
+						<option>space 3</option>
+					</select>
+
+				</div>
+			</div>
+			<div class="col-md-4">
+				<!--email-->
+				<div class="label">
+					<label for="accommodation">Accommodation category</label>
+					<p class="red">(*)</p>
+				</div>
+				<div class="input">
+					<select class="selectpicker" name="start">
+						<option>1 star</option>
+						<option>2 start</option>
+						<option>3 start</option>
+						<option selected>4 start</option>
+						<option>5 start</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<!--email-->
+				<div class="label">
+					<label for="budget">Budget</label>
+					<p class="red"></p>
+				</div>
+				<div class="input">
+					<input type="text" name="budget" placeholder="USD per person" >
+				</div>
+			</div>
+			<div class="clear-fix"></div>
+		</div>
+		<div class="row ">
+			<div class="col-md-12">
+				<!--email-->
+				<div class="label">
+					<label for="holiday">Please let us know your favorite holiday</label>
+					<p class="red"></p>
+				</div>
+				<div class="input">
+					<textarea rows="6" id='holiday' name="holiday"></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="clear-fix"></div>
+		<div class="button inquiry" style="width: 170px;">
+			<button  class="btn-rectangle">Send inquiry</button>
+		</div>
+	</form>
+	<!--group-form_chua_xong-->
+<!--	<div class="button inquiry">-->
+<!--		<a class="btn-rectangle" id="submit_form">Send inquiry</a>-->
 <!--	</div>-->
-<!--</footer>-->
-<!---->
-<!--<script type='text/javascript'>-->
-<!---->
-<!--	var width = $(window).width(), height = $(window).height();-->
-<!--	if ((width <= 1023) && (height >= 768)) {-->
-<!--		jQuery(".text-baner").attr('style','text-align:center;margin-top:150px;');-->
-<!--	} else {-->
-<!--		jQuery(".text-baner").attr('style','text-align:center;');-->
-<!--		window._sbzq||function(e){e._sbzq=[];var t=e._sbzq;t.push(["_setAccount",56180]);var n=e.location.protocol=="https:"?"https:":"http:";var r=document.createElement("script");r.type="text/javascript";r.async=true;r.src=n+"//static.subiz.com/public/js/loader.js";var i=document.getElementsByTagName("script")[0];i.parentNode.insertBefore(r,i)}(window);-->
-<!--	}-->
-<!--</script>-->
+
+</div>
+
+<!--8.contact-->
+<div id="contact">
+	<div class="container"><div id="foot_contact"></div></div>
+	<div class="wrap">
+		<!--contact-->
+		<div class="col-lg-6 contact">
+			<div id="contact_left">
+				<h2>Contact Us</h2>
+				<p>Founded in 2004, Luxury Travel specializes in high quality  Vacation Packages with an emphasis on the authentic travel experiences. Luxury Travel advisors follow a specially devised training program to develop their expertise in all aspects of travel, as well perfect their customer care skills.</p>
+				<div class="address">
+					<p><strong>Address:</strong>#5, Nguyen Truong To str, Ba Dinh Dist, Hanoi, Vietnam</p>
+					<p><strong>Phone:</strong>+84 4 3927 4120</p>
+					<p><strong>Email:</strong>sales@luxurytravelvietnam.com</p>
+					<p><strong>Fax:</strong>+84 4 3927 4120</p>
+				</div>
+			</div>
+		</div>
+		<!--map-->
+		<div class="col-lg-6" id="map">
+		</div>
+	</div>
+</div>
+
+<!--9.footer-->
+<div id="footer">
+	<div class="wrap">
+		<div class="container">
+			<!--copyright-->
+			<div class="col-lg-6 copyright">
+				<p>Copyright 2017 © www.luxurytravel.co - All rights reserved</p>
+			</div>
+			<!--icon-->
+			<div class="col-lg-6 icon">
+				<a class="fa fa-facebook-square"></a>
+				<a class="fa fa-twitter-square"></a>
+				<a class="fa fa-linkedin-square"></a>
+				<a class="fa fa-google-plus-square"></a>
+			</div>
+		</div>
+	</div>
+
+</div>
 
 
-<script src="//cdn.accesstrade.vn/js/tracking.js" ></script>
-<script type="text/javascript">
-	AT.track();
-	function clearValidity() {
-		document.getElementById('yes').setCustomValidity('');
-	}
+<!--slide-->
+<div class="hidden">
+	<div  id="slide_customer_1">
+		<div class="row">
+			<div class="col-md-2 left">
+				<div class="cover">
+					<img src="img/3.customer/girl.png" alt="girl"/>
+				</div>
 
-	function onInvalidCustom(idstr) {
-		var me = document.getElementById(idstr);
-		me.setCustomValidity('Số điện thoại không chính xác');
-		//me.setCustomValidity('');
-	}
 
-	function getCookie(cname) {
-		var name = cname + "=";
-		var ca = document.cookie.split(';');
-		for(var i = 0; i <ca.length; i++) {
-			var c = ca[i];
-			while (c.charAt(0)==' ') {
-				c = c.substring(1);
-			}
-			if (c.indexOf(name) == 0) {
-				return c.substring(name.length,c.length);
-			}
+
+			</div>
+			<div class="col-md-8 center">
+				<h3>
+					﻿"Vietnam in luxury with Luxury"
+				</h3>
+				<p>We have completed our visit to Vietnam and Cambodia and it is only right that we thank you for all your services throughout our trip. Your services were superb, on time and all the people you used were highly professional, friendly and knowledgeable. Guides and drivers were superb.</p>
+				<p>Mr. John, United Kingdom</p>
+			</div>
+			<div class="col-md-2 right">
+				<div class="image">
+					<img src="img/3.customer/chip_ad.png"/>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+	<div id="slide_customer_2">
+		<div class="row" >
+			<div class="col-md-2 left">
+				<div class="cover">
+					<img src="img/3.customer/girl2.jpg" alt="girl"/>
+				</div>
+
+
+
+			</div>
+			<div class="col-md-8 center">
+				<h3>
+					﻿"Been a crossroads for millennia"
+				</h3>
+				<p>been a crossroads for millennia for Vietnamese, Chinese, and a diverse array of minority groups, all of whom have left the stamp of their cultures. Many minority groups retain their traditional ways of life in earthen or wooden houses in the valleys from which they tend animals and farm .</p>
+				<p>Mr. John, United Kingdom</p>
+			</div>
+			<div class="col-md-2 right">
+				<div class="image">
+					<img src="img/3.customer/chip_ad.png"/>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+	<div id="slide_customer_3">
+		<div class="row" >
+			<div class="col-md-2 left">
+				<div class="cover">
+					<img src="img/3.customer/girl3.jpg" alt="girl"/>
+				</div>
+			</div>
+			<div class="col-md-8 center">
+				<h3>
+					﻿"Bives this area a great combination"
+				</h3>
+				<p>gives this area a great combination of nature and culture and is definitely a place for adventurers. Join us on this trip to experience a great trekking tour through village settings and learn about the fascinating cultures of the locals..</p>
+				<p>Mr. John, United Kingdom</p>
+			</div>
+			<div class="col-md-2 right">
+				<div class="image">
+					<img src="img/3.customer/chip_ad.png"/>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+</div>
+<script src="module/phone_country/source/jquery.min.js"></script>
+<!--bootstrap-->
+<script src="resources/bootstrap-3.3.7/dist/js/bootstrap.js"></script>
+<script src="resources/bootstrap-select-1.12.2/dist/js/bootstrap-select.js"></script>
+<script src="resources/national/dist/js/bootstrap-formhelpers.js"></script>
+
+<script src="module/phone_country/build/js/intlTelInput.js"></script>
+<script>
+	//contact and window resize
+	$("#contact_left").css({"paddingLeft": ($("#foot_contact").offset().left - 30) + "px"});
+	$(window).resize(function () {
+		$("#contact_left").css({"paddingLeft": ($("#foot_contact").offset().left - 30) + "px"});
+	});
+	$("#phone").intlTelInput({
+		placeholderNumberType: "MOBILE",
+		utilsScript: "module/phone_country/build/js/utils.js"
+	});
+	//set interval timeout
+	var sl = 0;
+	//slide
+	$(".slide_topic .li").removeClass("active");
+	$("#li_1").addClass("active");
+	$("#content_customer").html($("#slide_customer_1").html());
+	function showSlide(ld, selector) {
+		sl = ld - 1;
+		var html = "";
+		switch (ld) {
+			case 1:
+				html = $("#slide_customer_1").html();
+
+				break;
+			case 2:
+				html = $("#slide_customer_2").html();
+				break;
+			case 3:
+				html = $("#slide_customer_3").html();
+				break;
+			default :
+				html = $("#slide_customer_1").html();
+				break;
 		}
-		return "";
+		$(".slide_topic .li").removeClass("active");
+		$(selector).addClass("active");
+		$("#content_customer").html(html);
+
 	}
-	$("#aff_source").val(getCookie("_aff_network"));
-	$("#aff_sid").val(getCookie("_aff_sid"));
+
+	setInterval(function () {
+		$(".slide_topic .li").removeClass("active");
+		$("#li_" + (sl + 1)).addClass("active");
+		$("#content_customer").html($("#slide_customer_" + (sl + 1)).html());
+		sl++;
+		sl = sl % 3;
+	}, 3000);
+
+
+</script>
+
+<script>
+
+	function initMap() {
+		var myLatLng = {lat: 21.002695, lng: 105.820349};
+
+		var map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 16,
+			center: myLatLng
+		});
+
+		var marker = new google.maps.Marker({
+			position: myLatLng,
+			map: map,
+			title: 'Hello World!'
+		});
+	}
+</script>
+<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2Z1V0qCzUiKVxMRUYgBnR9tPiw4UaY94&callback=initMap">
 </script>
 
 </body>
 </html>
-
-
