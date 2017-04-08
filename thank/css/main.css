@@ -24,7 +24,7 @@ body {
     -webkit-transition: all .3s ease;
     -o-transition: all .3s ease;
     transition: all .3s ease;
-    background: url(../images/bg.jpg);
+    /*background: url(../images/bg.jpg);*/
 }
 
 .main-holder {
@@ -3606,12 +3606,12 @@ ul.u2 li.li6 {
 }
 
 .btn-lg-x {
-    background: #003b70;
+    background: #fab325;
     color: #fff;
     text-transform: uppercase;
-    padding: 25px 50px;
-    height: 60px;
-    font-size: 25px;
+    padding: 15px 25px;
+    height: 52px;
+    /* font-size: 25px; */
     font-weight: 600;
     border-radius: 5px;
 }

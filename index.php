@@ -23,6 +23,10 @@ if(isset($_POST['first_name'])) {
 			mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
 		);
 	}
+	$destinations = "";
+	if(isset($_POST['destinations'])){
+		$destinations = implode(', ', $_POST['destinations']);
+	}
 
 	$arr = array(
 		'properties' => array(
@@ -44,7 +48,7 @@ if(isset($_POST['first_name'])) {
 			),
 			array(
 				'property' => 'destinations',
-				'value' => implode(', ', $_POST['destinations'])
+				'value' => $destinations
 			),
 			array(
 				'property' => 'duration',
@@ -89,7 +93,6 @@ if(isset($_POST['first_name'])) {
 		)
 	);
 	$post_json = json_encode($arr);
-
 	$endpoint = "https://api.hubapi.com/contacts/v1/contact/?hapikey=79fe912a-8818-4f9d-b171-accc12bf4ec0";
 	$ch = @curl_init();
 	@curl_setopt($ch, CURLOPT_POST, true);
@@ -386,7 +389,7 @@ order_items_table_td_right m_8382415399398585989order_items_table_th_bg_color" s
 		$message = ob_get_clean();
 		$subject = 'Your inquiry into ailor-made holidays with Luxury Travel is well received';
 		$mail->Subject = $subject;
-		$mail->Body = "123";
+		$mail->Body = $message;
 		$mail->AltBody = "";
 		if(!$mail->Send())
 		{
@@ -937,7 +940,7 @@ order_items_table_td_right m_8382415399398585989order_items_table_th_bg_color" s
 					<p class="red">(*)</p>
 				</div>
 				<div class="input">
-					<input type="email" id="email" name="email" required  required pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" oninvalid="setCustomValidity('Email not in right format')" oninput="setCustomValidity('')">
+					<input type="email" id="email" name="email" required pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" oninvalid="setCustomValidity('Email not in right format')" oninput="setCustomValidity('')">
 				</div>
 			</div>
 			<div class="col-md-4">
@@ -966,47 +969,50 @@ order_items_table_td_right m_8382415399398585989order_items_table_th_bg_color" s
 			<div class="clear-fix"></div>
 		</div>
 		<div class="margin15"></div>
-		<div class=" row">
 
+<!--		code-->
+		<div class=" row">
 			<div class="input">
 				<!--destinations-->
 				<div class="item label">
-					<label for="destinations" required oninvalid="setCustomValidity('Destinations is mandatory')" oninput="setCustomValidity('')">Destinations </label>
+					<label for="destinations">Destinations </label>
 					<p class="red">(*)</p>
 				</div>
 				<!--1.vn-->
 				<div class="item">
-					<input type="checkbox" id="vietnam" name="destinations[]" value="Vietnam" >
+					<input type="checkbox" id="vietnam" name="destinations[]" value="Vietnam">
 					<label for="vietnam">Vietnam</label>
 				</div>
 
 				<!--2.cam-->
 				<div class="item">
-					<input type="checkbox" id="cambodia" name="destinations[]" value="cambodia" >
+					<input type="checkbox" id="cambodia" name="destinations[]" value="cambodia">
 					<label for="cambodia">Cambodia</label>
 
 				</div>
 				<!--3.lao-->
 				<div class="item">
-					<input type="checkbox" id="laos" name="destinations[]" value="laos" >
+					<input type="checkbox" id="laos" name="destinations[]" value="laos">
 					<label for="laos">Laos</label>
 
 				</div>
 				<!--4.mya-->
 				<div class="item">
-					<input type="checkbox" id="myanmar" name="destinations[]" value="myanmar" >
+					<input type="checkbox" id="myanmar" name="destinations[]" value="myanmar">
 					<label for="myanmar">Myanmar</label>
 
 				</div>
 				<!--5.thai-->
 				<div class="item">
-					<input type="checkbox" id="thailand" name="destinations[]" value="thailand" >
+					<input type="checkbox" id="thailand" name="destinations[]" value="thailand">
 					<label for="thailand">Thailand</label>
 
 				</div>
 			</div>
 			<div class="clear-fix"></div>
 		</div>
+
+
 		<div class="row">
 			<div class="col-md-4">
 				<!--email-->
@@ -1144,11 +1150,6 @@ order_items_table_td_right m_8382415399398585989order_items_table_th_bg_color" s
 			<button  class="btn-rectangle">Send inquiry</button>
 		</div>
 	</form>
-	<!--group-form_chua_xong-->
-<!--	<div class="button inquiry">-->
-<!--		<a class="btn-rectangle" id="submit_form">Send inquiry</a>-->
-<!--	</div>-->
-
 </div>
 
 <!--8.contact-->
